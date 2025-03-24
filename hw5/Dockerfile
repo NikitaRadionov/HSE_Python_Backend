@@ -1,0 +1,15 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY . .
+
+RUN apt-get update && apt-get install -y gcc libpq-dev \
+    && pip install --no-cache-dir -r requirements.txt \
+    && apt-get remove -y gcc \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+CMD ["sh", "-c", "cd /app/APIHub && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+
