@@ -18,3 +18,6 @@ logs:
 
 shell:
 	docker-compose exec web sh -c "cd /app/APIHub && python manage.py shell"
+
+test:
+	docker-compose exec web sh -c "cd /app/APIHub && python manage.py test"
